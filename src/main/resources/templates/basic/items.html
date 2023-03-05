@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<!-- 타임리프를 사용하기 위한 선언 -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <!-- 타임리프용 css 선언 방식 -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+<div class="container" style="max-width: 600px">
+    <div class="py-5 text-center">
+        <h2>상품 목록</h2>
+    </div>
+
+    <div class="row">
+        <div class="col">
+<!-- 타임리프식 링크 걸기 : html onclick 이 이미 있지만 타임리프가 자동으로 없앤 후 자신의 링크로 변환 시켜줌-->
+            <button class="btn btn-primary float-end"
+                    onclick="location.href='addForm.html'"
+                    th:onclick="|location.href='@{/basic/items/add}'|"
+                    type="button">상품 등록</button>
+        </div>
+    </div>
+
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>상품명</th>
+                <th>가격</th>
+                <th>수량</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 타임리프식 루프 문법 -->
+            <tr th:each="item : ${items}">
+                <!-- data 를 입력하는 방법 / 동적 링크 거는 방법 -->
+                <td><a th:href="@{/basic/items/{itemId}(itemId=${item.id})}" th:text="${item.id}">회원 id</a></td>
+                <td><a th:href="@{|/basic/items/${item.id}|}" th:text="${item.itemName}">상품 명</a></td>
+                <td th:text="${item.price}">10000</td>
+                <td th:text="${item.quantity}">10</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>
